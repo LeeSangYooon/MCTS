@@ -1,6 +1,5 @@
 class Game:
     def __init__(self):
-        self.board = None
         self.turn = None
         pass
 
