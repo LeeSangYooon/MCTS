@@ -29,7 +29,7 @@ class AI:
         return node
 
     def expansion(self, node):
-        if node.game.end:
+        if node.game.end():
             self.back_propagation(node, node.game.result())
             return
         moves : list = node.game.get_moves()
@@ -54,7 +54,7 @@ class AI:
 
         if len(moves) == len(node.movements):
             node.is_leaf_node = False
-        if new_node.game.end:
+        if new_node.game.end():
             self.back_propagation(new_node, result)
             return
         self.simulation(new_node)
@@ -63,11 +63,10 @@ class AI:
         for i in range(self.simulations):
             simulation_game : Game = deepcopy(node.game)
             result = None
-            while not simulation_game.end:
+            while not simulation_game.end():
                 result = simulation_game.move(choice(simulation_game.get_moves()))
 
             self.back_propagation(node, result)
-        pass
 
     def back_propagation(self, last_node, result):
         node = last_node
@@ -82,7 +81,7 @@ class AI:
             if node.parent is None:
                 break
             node = node.parent # 역전파
-        pass
+
     def next_movement(self):
         for i in range(self.visits):
             leaf_node = self.selection()

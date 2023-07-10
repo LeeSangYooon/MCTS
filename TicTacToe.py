@@ -14,6 +14,7 @@ class TicTacToe(Game):
         self.board = [[0, 0, 0], [0, 0, 0], [0, 0, 0]]
         self.turn = X
         self.move_number = 0
+        self.is_end = None
 
     def set_color(self, position, color):
         self.board[position[1]][position[0]] = color
@@ -25,10 +26,10 @@ class TicTacToe(Game):
         for check in check_list:
             first = self.get_color(check[0])
             if first != NONE and all([self.get_color(pos) == first for pos in check]):
-                self.end = True
+                self.is_end = True
                 return first
         if self.move_number == 9:
-            self.end = True
+            self.is_end = True
             return 0
         return None
 
@@ -45,6 +46,10 @@ class TicTacToe(Game):
                 if self.get_color(move) == NONE:
                     moves.append(move)
         return moves
+    
+    def end(self):
+        return self.is_end
+
     def show(self):
         for line in self.board.__reversed__():
             print(''.join([int_to_char[cell] for cell in line]))

@@ -15,7 +15,6 @@ def play_alone():
             break
 
 def play_with_AI():
-
     while True:
         ai = AI(game=game)
         result = game.move(ai.next_movement())
